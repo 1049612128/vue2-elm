@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import routes from './router/router'
+import {routerMode} from './config/env'
+import Fastclick fron 'fastclick'
 
 Vue.config.productionTip = false
 
