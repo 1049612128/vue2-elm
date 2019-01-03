@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import headTop from '../../components/header/head'
+import headTop from '@/components/header/header'
 import {cityGuess, hotcity, groupcity} from '../../service/getData'
 
 export default {
@@ -57,6 +57,7 @@ export default {
 	mounted(){
         // 获取当前城市
         cityGuess().then(res => {
+            console.log(res)
             this.guessCity = res.name;
             this.guessCityid = res.id;
         })
@@ -78,15 +79,15 @@ export default {
 
     computed:{
         //将获取的数据按照A-Z字母开头排序
-        sortgroupcity(){
-            let sortobj = {};
-            for (let i = 65; i <= 90; i++) {
-                if (this.groupcity[String.fromCharCode(i)]) {
-                    sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
-                }
-            }
-            return sortobj
-        }
+        // sortgroupcity(){
+        //     let sortobj = {};
+        //     for (let i = 65; i <= 90; i++) {
+        //         if (this.groupcity[String.fromCharCode(i)]) {
+        //             sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
+        //         }
+        //     }
+        //     return sortobj
+        // }
     },
 
     methods:{

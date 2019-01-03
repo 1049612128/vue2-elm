@@ -25,7 +25,7 @@ export const removeStore = name => {
 	window.localStorage.removeItem(name);
 }
 
-ccc
+
 /**
  * 页面到达底部，加载更多
  */

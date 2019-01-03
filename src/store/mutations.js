@@ -32,7 +32,7 @@ import {
 
 import {setStore, getStore} from '../config/mUtils'
 
-import {localapi, proapi} from 'src/config/env'
+import {localapi, proapi} from '@/config/env'
 
 export default {
 	// 记录当前经度纬度
