@@ -12,6 +12,7 @@ if('addEventListener' in document){
     FastClick.attach(document.body)
   },false)
 }
+console.log(process.env.NODE_ENV)
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 const router =new VueRouter({

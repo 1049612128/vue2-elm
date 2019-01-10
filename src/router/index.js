@@ -20,8 +20,12 @@ export default [{
   component:App,
   children:[
     {
-      path:"",
-      redirect:'/home'
+      path:'',
+      redirect:'/home',
+      
+    },{
+      path:'/home',
+      component:home
     }
   ]
 }]
