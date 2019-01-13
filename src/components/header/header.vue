@@ -29,14 +29,13 @@ import {mapState ,mapActions } from 'vuex'
     export default {
         data() {
             return {
-            
             }
         },
         mounted(){
             //获取用户信息
             this.getUserInfo();
         },
-        prop:['signinup','headerTitle','goBack'],
+        props:['signinUp','headTitle','goBack'],
         computed:{
             ...mapState([
                 'userInfo'

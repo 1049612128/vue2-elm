@@ -6,12 +6,21 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
+    env:{
+      NODE_ENV:'development'
+    },
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
-
+    proxyTable: {
+      '/api':{
+        target:'http://cangdu.org:8001',
+        changeOrigin:true,
+        pathRewrite:{
+          'api':''
+        }
+      }
+    },
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8889, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
@@ -19,8 +28,7 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
-    
+   
     /**
      * Source Maps
      */

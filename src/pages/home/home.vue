@@ -79,15 +79,15 @@ export default {
 
     computed:{
         //将获取的数据按照A-Z字母开头排序
-        // sortgroupcity(){
-        //     let sortobj = {};
-        //     for (let i = 65; i <= 90; i++) {
-        //         if (this.groupcity[String.fromCharCode(i)]) {
-        //             sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
-        //         }
-        //     }
-        //     return sortobj
-        // }
+        sortgroupcity(){
+            let sortobj = {};
+            for (let i = 65; i <= 90; i++) {
+                if (this.groupcity[String.fromCharCode(i)]) {
+                    sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
+                }
+            }
+            return sortobj
+        }
     },
 
     methods:{
