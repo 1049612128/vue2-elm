@@ -5,7 +5,7 @@
         </head-top>
         <form class="loginForm" v-if="loginWay">
             <section class="input_container phone_number">
-               <input type="text" placeholder="账号密码随便输入" name="phone" maxlength="11" v-model="phoneNumber">
+               <input type="text" placeholder="请输入手机号" name="phone" maxlength="11" v-model="phoneNumber">
                 <button @click.prevent="getVerifyCode" :class="{right_phone_number:rightPhoneNumber}" v-show="!computedTime">获取验证码</button>
                 <button  @click.prevent v-show="computedTime">已发送({{computedTime}}s)</button>
             </section>
@@ -164,10 +164,12 @@ import {mobileCode,checkExsis,sendLogin,getcaptchas,accountLogin} from '@/servic
                     }
                      //用户名登录
                     this.userInfo = await accountLogin(this.userAccount, this.passWord, this.codeNumber);
+                    console.log(this.userInfo)
                 }
                 //如果返回的值不正确，则弹出提示框，返回的值正确则返回上一页
                 if (!this.userInfo.user_id) {
                     this.showAlert = true;
+                    console.log(this.userInfo)
                     this.alertText = this.userInfo.message;
                     if (!this.loginWay) this.getCaptchaCode();
                 }else{

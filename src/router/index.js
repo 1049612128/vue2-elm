@@ -4,8 +4,8 @@ import App from '../App'
 //const home = r => require.ensure([],()=>r(require("../pages/home/home")),home)
 import home from '@/pages/home/home'
 import login from '@/pages/login/login'
-
-Vue.use(Router)
+import forget from '@/pages/forget/forget'
+// Vue.use(Router)
 
 // export default new Router({
 //   routes: [
@@ -31,6 +31,10 @@ export default [{
       path:'/login',
       name:"Login",
       component:login
+    },{
+      path:'/forget',
+      name:'Forget',
+      component:forget
     }
   ]
 }]

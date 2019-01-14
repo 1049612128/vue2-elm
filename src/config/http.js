@@ -59,7 +59,7 @@ axios.defaults.timeout = 5000;
   }else if(type=="POST"){
       return new Promise((resolve,reject)=>{
           axios.post(baseUrl+url,data).then(response=>{
-              resolve(response)
+              resolve(response.data)
           }).catch(err=>{
               reject(err)
           })
@@ -67,7 +67,7 @@ axios.defaults.timeout = 5000;
   }else if(type=="PATCH"){
       return new Promise((resolve,reject)=>{
           axios.patch(baseUrl+url,data).then(response=>{
-              resolve(response)
+              resolve(response.data)
           }).catch(err=>{
               reject(err)
           })
