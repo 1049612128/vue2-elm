@@ -7,7 +7,7 @@ const path = require('path')
 module.exports = {
   dev: {
     env:{
-      NODE_ENV:'development'
+      NODE_ENV:'"development"'
     },
     // Paths
     assetsSubDirectory: 'static',
@@ -17,12 +17,12 @@ module.exports = {
         target:'http://cangdu.org:8001',
         changeOrigin:true,
         pathRewrite:{
-          'api':''
+          '^/api':''
         }
       }
     },
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '127.0.0.1', // can be overwritten by process.env.HOST
     port: 8889, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
