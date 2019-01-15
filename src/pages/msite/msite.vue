@@ -11,18 +11,37 @@
                         <span class="title_text ellipsis">{{msiteTitle}}</span>
                     </router-link>
         </head-top>
+        <nav class="msite_nav">
+            <swiper :options="swiperOption">
+                <swiper-slide v-for="(item,index) in foodTypes" :key="index" class="food_types_container swiper-slide">
+                    <router-link :to="{path:'/food',query:{geohash,title:foodItem.title,restaurant_category_id:getCategoryId(foodItem.link)}}" v-for="foodItem in item" :key="foodItem.id" class='link_to_food'></router-link>
+                    <figure>
+	            		<img :src="imgBaseUrl + foodItem.image_url">
+	            		<figcaption>{{foodItem.title}}</figcaption>
+	            	</figure>
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+        </nav>
     </div>
 </template>
 
 <script>
 import headTop from 'components/header/header'
+// import {imgBaseUrl} from 'src/config/env'
 import footGuide from 'components/footer/footGuide'
-
+import {msiteAddress, msiteFoodTypes, cityGuess} from '@/service/getData'
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { mapMutations} from 'vuex'
 
     export default {
         data() {
             return {
+            swiperOption: {
+                    pagination:'.swiper-pagination',
+                    loop:true
+                },    
             geohash: '', // city页面传递过来的地址geohash
             msiteTitle: '请选择地址...', // msite页面头部标题
             foodTypes: [], // 食品分类列表
@@ -31,19 +50,62 @@ import { mapMutations} from 'vuex'
             }
         },
         components:{
-            headTop
+            headTop,swiper,swiperSlide
+        },
+        async beforeMount(){
+            if(!this.$route.query.geohash){
+                const address =await cityGuess();
+                this.geohash=address.latitude+','+address.longitude;
+            }else{
+                this.geohash =this.$route.query.geohash
+            }
+            //保存gohash到vuex
+            this.SAVE_GEOHASH(this.geohash)
+            //获取位置信息
+            let res =await msiteAddress(this.geohash)
+            this.msiteTitle=res.name;
+            //记录当前经纬度
+            this.RECORD_ADDRESS(res)
+            this.hasGetData=true
+        },
+        mounted(){
+        //获取导航食品类型列表
+        msiteFoodTypes(this.geohash).then(res=>{
+            let resLength =res.length;
+            console.log(res)
+            let resArr =[...res]
+            let foodArr =[];
+            for(let i=0,j=0;i<resLength;i+=8,j++){
+                foodArr[j] =resArr.splice(0,8)
+            }
+            this.foodTypes =foodArr;
+            console.log("this.foodTypes",this.foodTypes)
+        })
+        },
+        methods:{
+            ...mapMutations([
+                'RECORD_ADDRESS','SAVE_GEOHASH'
+            ]),
+            	// 解码url地址，求去restaurant_category_id值
+    	getCategoryId(url){
+    		let urlData = decodeURIComponent(url.split('=')[1].replace('&target_name',''));
+    		if (/restaurant_category_id/gi.test(urlData)) {
+    			return JSON.parse(urlData).restaurant_category_id.id
+    		}else{
+    			return ''
+    		}
+    	}
         }
     }
 </script>
-
 <style lang="scss" scoped>
- @import 'src/style/mixin';
+    @import 'src/style/mixin';
 	.link_search{
 		left: .8rem;
 		@include wh(.9rem, .9rem);
 		@include ct;
 	}
-    .msite_title{
+	.msite_title{
 		@include center;
         width: 50%;
         color: #fff;
@@ -55,4 +117,57 @@ import { mapMutations} from 'vuex'
             display: block;
         }
 	}
+	.msite_nav{
+		padding-top: 2.1rem;
+		background-color: #fff;
+		border-bottom: 0.025rem solid $bc;
+		height: 10.6rem;
+		.swiper-container{
+			@include wh(100%, auto);
+			padding-bottom: 0.6rem;
+			.swiper-pagination{
+				bottom: 0.2rem;
+			}
+		}
+		.fl_back{
+			@include wh(100%, 100%);
+		}
+	}
+	.food_types_container{
+		display:flex;
+		flex-wrap: wrap;
+		.link_to_food{
+			width: 25%;
+			padding: 0.3rem 0rem;
+			@include fj(center);
+			figure{
+				img{
+					margin-bottom: 0.3rem;
+					@include wh(1.8rem, 1.8rem);
+				}
+				figcaption{
+					text-align: center;
+					@include sc(0.55rem, #666);
+				}
+			}
+		}
+	}
+	.shop_list_container{
+		margin-top: .4rem;
+		border-top: 0.025rem solid $bc;
+		background-color: #fff;
+		.shop_header{
+			.shop_icon{
+				fill: #999;
+				margin-left: 0.6rem;
+				vertical-align: middle;
+				@include wh(0.6rem, 0.6rem);
+			}
+			.shop_header_title{
+				color: #999;
+				@include font(0.55rem, 1.6rem);
+			}
+		}
+	}
+
 </style>
