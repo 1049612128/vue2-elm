@@ -57,7 +57,6 @@ export default {
 	mounted(){
         // 获取当前城市
         cityGuess().then(res => {
-            console.log(res)
             this.guessCity = res.name;
             this.guessCityid = res.id;
         })
@@ -86,6 +85,7 @@ export default {
                     sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
                 }
             }
+            console.log(sortobj)
             return sortobj
         }
     },
