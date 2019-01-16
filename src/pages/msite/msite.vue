@@ -12,24 +12,38 @@
                     </router-link>
         </head-top>
         <nav class="msite_nav">
-            <swiper :options="swiperOption">
+            <swiper :options="swiperOption" v-if="foodTypes.length">
                 <swiper-slide v-for="(item,index) in foodTypes" :key="index" class="food_types_container swiper-slide">
-                    <router-link :to="{path:'/food',query:{geohash,title:foodItem.title,restaurant_category_id:getCategoryId(foodItem.link)}}" v-for="foodItem in item" :key="foodItem.id" class='link_to_food'></router-link>
-                    <figure>
-	            		<img :src="imgBaseUrl + foodItem.image_url">
-	            		<figcaption>{{foodItem.title}}</figcaption>
-	            	</figure>
+                    <router-link  v-for="foodItem in item" :key="foodItem.id" :to="{path:'/food',query:{geohash,title:foodItem.title,restaurant_category_id:getCategoryId(foodItem.link)}}" class='link_to_food'>
+                        <figure>
+                            <img :src="imgBaseUrl + foodItem.image_url">
+                            <figcaption>{{foodItem.title}}</figcaption>
+                        </figure>
+                    </router-link>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
+            <img src="src/images/fl.svg" class="fl_back animation_opactiy" v-else>
         </nav>
+        <div class="shop_list_container">
+            <header class="shop_header"> 
+                <svg class="shop_icon">
+	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#shop"></use>
+	    		</svg>
+	    		<span class="shop_header_title">附近商家</span>
+            </header>
+            <shop-list v-if="hasGetData" :geohash="geohash"></shop-list>
+        </div>
+        <foot-guide></foot-guide>
     </div>
 </template>
 
 <script>
 import headTop from 'components/header/header'
-// import {imgBaseUrl} from 'src/config/env'
 import footGuide from 'components/footer/footGuide'
+import shopList from '@/components/common/shopList'
+// import {imgBaseUrl} from 'src/config/env'
+
 import {msiteAddress, msiteFoodTypes, cityGuess} from '@/service/getData'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
@@ -50,7 +64,7 @@ import { mapMutations} from 'vuex'
             }
         },
         components:{
-            headTop,swiper,swiperSlide
+            shopList,headTop,swiper,swiperSlide,footGuide
         },
         async beforeMount(){
             if(!this.$route.query.geohash){
@@ -72,14 +86,13 @@ import { mapMutations} from 'vuex'
         //获取导航食品类型列表
         msiteFoodTypes(this.geohash).then(res=>{
             let resLength =res.length;
-            console.log(res)
             let resArr =[...res]
             let foodArr =[];
             for(let i=0,j=0;i<resLength;i+=8,j++){
+                console.log("i",i+'j'+j)
                 foodArr[j] =resArr.splice(0,8)
             }
             this.foodTypes =foodArr;
-            console.log("this.foodTypes",this.foodTypes)
         })
         },
         methods:{
@@ -117,6 +130,8 @@ import { mapMutations} from 'vuex'
             display: block;
         }
 	}
+    .swiper >>> .swiper-pagination-bullet-active
+       {background-color:#fff }
 	.msite_nav{
 		padding-top: 2.1rem;
 		background-color: #fff;
