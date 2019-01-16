@@ -1,6 +1,6 @@
 <template>
     <div class="shoplist_container">
-        <ul v-load-more="loadMore" v-if="shopListArr" type="1">
+        <ul v-load-more="loaderMore" v-if="shopListArr" type="1">
             <router-link :to="{path:'/shop',query:{geohash,id:item.id}}" v-for="item in shopListArr" :key="item.id" tag="li" class="shop_li">
                 <section>
                     <img :src="imgBaseUrl + item.image_path" class="shop_img">
@@ -65,7 +65,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import {shoplist} from '@/service/getData'
+import {shopList} from '@/service/getData'
 import {imgBaseUrl} from '@/config/env'
 import {showBack,animate} from '@/config/mUtils'
 import {loadMore ,getImgPath} from './mixin'
@@ -86,6 +86,7 @@ import ratingStar from './ratingStar'
         components:{
             loadIng,ratingStar
         },
+		mixins: [loadMore, getImgPath],
         computed:{
             ...mapState([
                 'latitude','longitude'
@@ -98,7 +99,7 @@ import ratingStar from './ratingStar'
         methods:{
             async initData(){
                 //获取数据
-                let res =await shoplist(this.latitude,this.longitude,this.offset,this.restaurantCategoryId)
+                let res =await shopList(this.latitude,this.longitude,this.offset,this.restaurantCategoryId)
                 console.log(res)
                 this.shopListArr =[...res];
                 if(res.length<20){
