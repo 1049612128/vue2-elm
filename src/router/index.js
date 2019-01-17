@@ -7,6 +7,7 @@ import login from '@/pages/login/login'
 import forget from '@/pages/forget/forget'
 import city from '@/pages/city/city'
 import msite from '@/pages/msite/msite'
+import food from '@/pages/food/food'
 // Vue.use(Router)
 
 // export default new Router({
@@ -49,6 +50,10 @@ export default [{
       path:'/msite',
       component:msite,
       meta:{keepAlive:true}
+    },{
+       //特色商铺列表页
+       path:'/food',
+       component:food
     }
   ]
 }]

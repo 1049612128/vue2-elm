@@ -53,7 +53,7 @@ import { mapMutations} from 'vuex'
         data() {
             return {
             swiperOption: {
-                    pagination:'.swiper-pagination',
+                    pagination:{el:'.swiper-pagination'},
                     loop:true
                 },    
             geohash: '', // city页面传递过来的地址geohash
