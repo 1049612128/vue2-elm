@@ -53,7 +53,7 @@ export default [{
     },{
        //特色商铺列表页
        path:'/food',
-       component:food
+       component:food,
     }
   ]
 }]

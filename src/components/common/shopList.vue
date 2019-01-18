@@ -166,20 +166,20 @@ import ratingStar from './ratingStar'
 			return zhunStatus
 		}
         },
-        // watch:{
-        //     //监听父级传来的restaurantCategoryIds，当值发生变化的时候重新获取餐馆数据，作用于排序和筛选
-		// restaurantCategoryIds: function (value){
-		// 	this.listenPropChange();
-        // },//监听父级传来的排序方式
-		// sortByType: function (value){
-		// 	this.listenPropChange();
-		// },
-		// //监听父级的确认按钮是否被点击，并且返回一个自定义事件通知父级，已经接收到数据，此时父级才可以清除已选状态
-		// confirmSelect: function (value){
-		// 	this.listenPropChange();
-		// }
+        watch:{
+            //监听父级传来的restaurantCategoryIds，当值发生变化的时候重新获取餐馆数据，作用于排序和筛选
+		restaurantCategoryIds: function (value){
+			this.listenPropChange();
+        },//监听父级传来的排序方式
+		sortByType: function (value){
+			this.listenPropChange();
+		},
+		//监听父级的确认按钮是否被点击，并且返回一个自定义事件通知父级，已经接收到数据，此时父级才可以清除已选状态
+		confirmSelect: function (value){
+			this.listenPropChange();
+		}
         
-        // }
+        }
     }
 </script>
 
