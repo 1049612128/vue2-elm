@@ -7,6 +7,8 @@
  * 
  */
 let baseUrl ='';
+let proapi='';
+let localapi ='';
 let routerMode ='hash';
 let imgBaseUrl ='';
 if(process.env.NODE_ENV=='development'){
@@ -19,5 +21,7 @@ if(process.env.NODE_ENV=='development'){
 export {
     baseUrl,
     routerMode,
-    imgBaseUrl
+    imgBaseUrl,
+    localapi,
+    proapi
 }
