@@ -19,7 +19,7 @@
         </section>
         <p class="deal_detail">最近30天积分纪录</p>
         <div class="no_log">
-            <img src="../../images/assets/no-log.png">
+            <img src="../../assets/images/no-log.png">
             <p>最近30天无积分纪录</p>
             <p>快去下单赚取大量积分吧</p>
         </div>

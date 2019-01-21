@@ -29,6 +29,16 @@ import hbDescription from '@/pages/benefit/children/hbDescription'
 import hbHistory from '@/pages/benefit/children/hbHistory'
 import points from '@/pages/points/points'
 import pointsDetail from '@/pages/points/children/detail'
+import vipcard from '@/pages/vipcard/vipcard'
+import invoiceRecord from '@/pages/vipcard/children/invoiceRecord'
+import useCart from '@/pages/vipcard/children/useCart'
+import vipDescription from '@/pages/vipcard/children/vipDescription'
+import download from '@/pages/download/download'
+import find from '@/pages/find/find'
+import service from '@/pages/service/service'
+import questionDetail from '@/pages/service/children/questionDetail'
+import order from '@/pages/order/order'
+import orderDetail from '@/pages/order/children/orderDetail'
 // Vue.use(Router)
 
 // export default new Router({
@@ -156,6 +166,46 @@ export default [{
        path:'detail', //积分说明
        component:pointsDetail
      }]
-   }
+   },{
+     //vip卡页
+     path: '/vipcard',
+     component: vipcard,
+     children: [{
+         path: 'invoiceRecord', //开发票
+         component: invoiceRecord,
+     }, {
+         path: 'useCart', //购买会员卡
+         component: useCart,
+     }, {
+         path: 'vipDescription', //会员说明
+         component: vipDescription,
+     },]
+
+   }, //下载页
+   {
+       path: '/download',
+       component: download
+   },{
+     path:'/find',
+     component:find
+   },
+    //服务中心
+    {
+      path: '/service',
+      component: service,
+       children: [{
+          path: 'questionDetail', //订单详情页
+          component: questionDetail,
+      }, ]
+  },
+   //订单列表页
+   {
+    path: '/order',
+    component: order,
+    children: [{
+        path: 'orderDetail', //订单详情页
+        component: orderDetail,
+    }, ]
+}
   ]
 }]
